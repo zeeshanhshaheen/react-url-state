@@ -7,5 +7,6 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: ['react', 'react-dom', 'next'],
+  external: ['react', 'react-dom', 'next', 'react-router-dom'],
+  tsconfig: './tsconfig.lib.json',
 })

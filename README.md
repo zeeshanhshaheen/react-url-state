@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React URL State
 
-## Getting Started
+Stop manually syncing component state with URL parameters. This library automatically keeps your filters, sorting, and pagination in sync with the URL using TypeScript schemas. No more broken back buttons, lost filter state on refresh, or hand-written query parameter parsing.
 
-First, run the development server:
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install react-url-state
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Define your schema
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```typescript
+import { defineUrlState, z } from "react-url-state";
 
-## Learn More
+const filters = defineUrlState(z.object({
+  q: z.string().default(""),
+  page: z.number().int().min(1).default(1),
+  sort: z.enum(["name", "price"]).default("name"),
+  inStock: z.boolean().default(false),
+  categories: z.array(z.string()).default([]),
+}));
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Use in your component
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```typescript
+import { useUrlState } from "react-url-state";
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+export function ProductFilters() {
+  const [state, setState] = useUrlState(filters);
 
-## Deploy on Vercel
+  return (
+    <div>
+      <input
+        value={state.q}
+        onChange={(e) => setState({ q: e.target.value, page: 1 })}
+        placeholder="Search..."
+      />
+      
+      <select
+        value={state.sort}
+        onChange={(e) => setState({ sort: e.target.value, page: 1 })}
+      >
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+      </select>
+    </div>
+  );
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. URL automatically updates
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+/products?q=shoes&page=2&sort=price&inStock=true&categories=sneakers,boots
+```
+
+## Framework Support
+
+- **Next.js**: `useNextUrlState()`, `useNextShareLink()`, `useNextResetUrlState()`
+- **React Router**: `useReactRouterUrlState()`, `useReactRouterShareLink()`, `useReactRouterResetUrlState()`
+- **SSR Ready**: Works with server-side rendering out of the box
+
+## Core Features
+
+- ✅ **Type Safety**: Full TypeScript support with Zod schema validation
+- ✅ **Automatic Serialization**: Handles arrays, booleans, numbers, dates, and enums
+- ✅ **Debounced Updates**: Prevent URL spam with configurable debouncing
+- ✅ **Share URLs**: Built-in helpers to generate shareable URLs with complete state
+- ✅ **Back/Forward Navigation**: Works seamlessly with browser navigation
+- ✅ **SSR Friendly**: Server-side rendering support for all major frameworks
+
+## Advanced Usage
+
+### Debounced Search
+
+```typescript
+const filters = defineUrlState(schema, {
+  debounceMs: 300,  // Wait 300ms before updating URL
+  mode: "replace"   // Don't create history entries
+});
+```
+
+### Share Current State
+
+```typescript
+const { copyShareLink } = useShareLink(filters);
+
+<button onClick={() => copyShareLink()}>
+  Share Current Filters
+</button>
+```
+
+### Reset to Defaults
+
+```typescript
+const resetState = useResetUrlState(filters);
+
+<button onClick={resetState}>
+  Clear All Filters
+</button>
+```
+
+## License
+
+MIT

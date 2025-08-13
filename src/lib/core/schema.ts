@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import type { UrlStateDefinition, UrlStateOptions, UrlStateSchema, ParsedUrlState } from './types'
+import { getFieldType, decodeValue, encodeValue } from './encoders'
 
 export function defineUrlState<T>(
   schema: UrlStateSchema<T>,
@@ -63,7 +64,8 @@ function decodeSearchParams(params: Record<string, string | string[]>, schema: U
   const decoded: any = {}
 
   for (const [key, value] of Object.entries(params)) {
-    decoded[key] = decodeValue(value, getFieldType(schema, key))
+    const typeInfo = getFieldType(schema, key)
+    decoded[key] = decodeValue(value, typeInfo)
   }
 
   return decoded
@@ -75,8 +77,8 @@ function encodeToSearchParams(data: any, searchParams: URLSearchParams, schema: 
   for (const [key, value] of Object.entries(data)) {
     if (value === undefined || value === null) continue
 
-    const fieldType = getFieldType(schema, key)
-    const encoded = encodeValue(value, fieldType)
+    const typeInfo = getFieldType(schema, key)
+    const encoded = encodeValue(value, typeInfo)
 
     if (Array.isArray(encoded)) {
       encoded.forEach(v => searchParams.append(key, v))
@@ -86,58 +88,3 @@ function encodeToSearchParams(data: any, searchParams: URLSearchParams, schema: 
   }
 }
 
-function getFieldType(schema: UrlStateSchema, key: string): string {
-  if (schema instanceof z.ZodObject) {
-    const shape = (schema as any).shape
-    const field = shape[key]
-    
-    if (field instanceof z.ZodString) return 'string'
-    if (field instanceof z.ZodNumber) return 'number'
-    if (field instanceof z.ZodBoolean) return 'boolean'
-    if (field instanceof z.ZodArray) return 'array'
-    if (field instanceof z.ZodDate) return 'date'
-  }
-  
-  return 'string'
-}
-
-function decodeValue(value: string | string[], type: string): any {
-  const singleValue = Array.isArray(value) ? value[0] : value
-
-  switch (type) {
-    case 'number':
-      const num = Number(singleValue)
-      return isNaN(num) ? undefined : num
-    
-    case 'boolean':
-      return singleValue === 'true' || singleValue === '1'
-    
-    case 'array':
-      return Array.isArray(value) ? value : singleValue ? singleValue.split(',') : []
-    
-    case 'date':
-      const date = new Date(singleValue)
-      return isNaN(date.getTime()) ? undefined : date
-    
-    default:
-      return singleValue || ''
-  }
-}
-
-function encodeValue(value: any, type: string): string | string[] {
-  if (value === undefined || value === null) return ''
-
-  switch (type) {
-    case 'boolean':
-      return value ? '1' : '0'
-    
-    case 'array':
-      return Array.isArray(value) ? value.map(String) : [String(value)]
-    
-    case 'date':
-      return value instanceof Date ? value.toISOString() : String(value)
-    
-    default:
-      return String(value)
-  }
-}

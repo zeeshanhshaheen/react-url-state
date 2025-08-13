@@ -11,4 +11,13 @@ export type {
 
 export { useUrlState, useShareLink, useResetUrlState } from './hooks'
 
+export { 
+  useNextUrlState, 
+  useNextShareLink, 
+  useNextResetUrlState,
+  useReactRouterUrlState, 
+  useReactRouterShareLink, 
+  useReactRouterResetUrlState 
+} from './adapters'
+
 export { z } from 'zod'

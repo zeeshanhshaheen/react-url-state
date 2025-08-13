@@ -8,7 +8,7 @@ export interface FieldTypeInfo {
 
 export function getFieldType(schema: z.ZodTypeAny, key: string): FieldTypeInfo {
   if (schema instanceof z.ZodObject) {
-    const shape = (schema as any).shape
+    const shape = (schema as unknown as { shape: Record<string, z.ZodTypeAny> }).shape
     let field = shape[key]
     
     if (!field) {
@@ -49,7 +49,7 @@ function getZodType(schema: z.ZodTypeAny): string {
   return 'string'
 }
 
-export function decodeValue(value: string | string[], typeInfo: FieldTypeInfo): any {
+export function decodeValue(value: string | string[], typeInfo: FieldTypeInfo): unknown {
   const { type, isArray } = typeInfo
   
   if (isArray) {
@@ -61,7 +61,7 @@ export function decodeValue(value: string | string[], typeInfo: FieldTypeInfo): 
   return decodeSingleValue(singleValue, type)
 }
 
-function decodeSingleValue(value: string, type: string): any {
+function decodeSingleValue(value: string, type: string): unknown {
   if (!value && value !== '0') return undefined
 
   switch (type) {
@@ -84,7 +84,7 @@ function decodeSingleValue(value: string, type: string): any {
   }
 }
 
-export function encodeValue(value: any, typeInfo: FieldTypeInfo): string | string[] {
+export function encodeValue(value: unknown, typeInfo: FieldTypeInfo): string | string[] {
   if (value === undefined || value === null) return ''
 
   const { type, isArray } = typeInfo
@@ -97,7 +97,7 @@ export function encodeValue(value: any, typeInfo: FieldTypeInfo): string | strin
   return encodeSingleValue(value, type)
 }
 
-function encodeSingleValue(value: any, type: string): string {
+function encodeSingleValue(value: unknown, type: string): string {
   if (value === undefined || value === null) return ''
 
   switch (type) {

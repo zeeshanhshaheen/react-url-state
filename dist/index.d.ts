@@ -1,22 +1,22 @@
 import { z } from 'zod';
 export { z } from 'zod';
 
-type UrlStateSchema<T = any> = z.ZodType<T>;
+type UrlStateSchema<T = unknown> = z.ZodType<T>;
 interface UrlStateOptions {
     mode?: 'push' | 'replace';
     debounceMs?: number;
     scope?: 'search' | 'hash';
 }
-interface UrlStateDefinition<T = any> {
+interface UrlStateDefinition<T = unknown> {
     schema: UrlStateSchema<T>;
     options?: UrlStateOptions;
 }
-interface DefinedUrlState<T = any> extends UrlStateDefinition<T> {
+interface DefinedUrlState<T = unknown> extends UrlStateDefinition<T> {
     readFrom: (searchParams: URLSearchParams | Record<string, string | string[]>) => ParsedUrlState<T>;
     toSearchParams: (data: T) => URLSearchParams;
 }
 type InferUrlStateType<T> = T extends UrlStateDefinition<infer U> ? U : never;
-interface ParsedUrlState<T = any> {
+interface ParsedUrlState<T = unknown> {
     data: T;
     errors?: Record<string, string>;
 }

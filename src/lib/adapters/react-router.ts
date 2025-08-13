@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react'
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
+import { useSearchParams, useLocation } from 'react-router-dom'
 import type { DefinedUrlState, UrlStateOptions } from '../core/types'
 
 export function useReactRouterUrlState<T>(

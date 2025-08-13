@@ -329,9 +329,9 @@ export async function loader({ request }) {
                       <div>
                         <span className="font-mono text-blue-600">options?</span>: <span className="text-gray-600">Optional configuration object</span>
                         <div className="ml-4 mt-1 text-xs text-gray-500">
-                          • <code>mode?: 'push' | 'replace'</code> - History behavior (default: 'replace')<br/>
+                          • <code>mode?: &apos;push&apos; | &apos;replace&apos;</code> - History behavior (default: &apos;replace&apos;)<br/>
                           • <code>debounceMs?: number</code> - Debounce delay in milliseconds (default: 0)<br/>
-                          • <code>scope?: 'search' | 'hash'</code> - URL location (default: 'search')
+                          • <code>scope?: &apos;search&apos; | &apos;hash&apos;</code> - URL location (default: &apos;search&apos;)
                         </div>
                       </div>
                     </div>

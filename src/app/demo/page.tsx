@@ -80,7 +80,7 @@ export default function DemoPage() {
                   <label className="block text-sm font-medium text-gray-900 mb-2">Sort by</label>
                   <select
                     value={filters.sort}
-                    onChange={(e) => setFilters({ sort: e.target.value as any, page: 1 })}
+                    onChange={(e) => setFilters({ sort: e.target.value as "name" | "price", page: 1 })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="relevance">Relevance</option>

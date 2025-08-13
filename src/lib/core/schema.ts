@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import type { UrlStateDefinition, UrlStateOptions, UrlStateSchema, ParsedUrlState, DefinedUrlState } from './types'
 import { getFieldType, decodeValue, encodeValue } from './encoders'
 
@@ -57,8 +56,8 @@ function serializeUrlState<T>(schema: UrlStateSchema<T>, data: T): URLSearchPara
   return searchParams
 }
 
-function decodeSearchParams(params: Record<string, string | string[]>, schema: UrlStateSchema): any {
-  const decoded: any = {}
+function decodeSearchParams(params: Record<string, string | string[]>, schema: UrlStateSchema): unknown {
+  const decoded: Record<string, unknown> = {}
 
   for (const [key, value] of Object.entries(params)) {
     const typeInfo = getFieldType(schema, key)
@@ -68,7 +67,7 @@ function decodeSearchParams(params: Record<string, string | string[]>, schema: U
   return decoded
 }
 
-function encodeToSearchParams(data: any, searchParams: URLSearchParams, schema: UrlStateSchema): void {
+function encodeToSearchParams(data: unknown, searchParams: URLSearchParams, schema: UrlStateSchema): void {
   if (!data || typeof data !== 'object') return
 
   for (const [key, value] of Object.entries(data)) {

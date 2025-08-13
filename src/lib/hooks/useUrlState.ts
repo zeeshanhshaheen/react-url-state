@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
-import type { DefinedUrlState, InferUrlStateType, UrlStateOptions } from '../core/types'
+import type { DefinedUrlState, UrlStateOptions } from '../core/types'
 
 export function useUrlState<T>(
   definition: DefinedUrlState<T>,

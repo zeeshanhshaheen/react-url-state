@@ -29,8 +29,6 @@
     "build:lib": "tsup",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
     "prepublishOnly": "npm run build:lib"
   },
   "dependencies": {
@@ -44,13 +42,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19.1.7",
-    "@vitest/ui": "^3.2.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "tailwindcss": "^4",
     "tsup": "^8.5.0",
     "typescript": "^5",
-    "vitest": "^3.2.4",
     "zod": "^4.0.17"
   }
 }

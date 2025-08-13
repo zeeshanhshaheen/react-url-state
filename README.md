@@ -5,7 +5,7 @@ Stop manually syncing component state with URL parameters. This library automati
 ## Installation
 
 ```bash
-npm install react-url-state
+npm install react-zod-url-state
 ```
 
 ## Quick Start
@@ -13,7 +13,7 @@ npm install react-url-state
 ### 1. Define your schema
 
 ```typescript
-import { defineUrlState, z } from "react-url-state";
+import { defineUrlState, z } from "react-zod-url-state";
 
 const filters = defineUrlState(z.object({
   q: z.string().default(""),
@@ -27,7 +27,7 @@ const filters = defineUrlState(z.object({
 ### 2. Use in your component
 
 ```typescript
-import { useUrlState } from "react-url-state";
+import { useUrlState } from "react-zod-url-state";
 
 export function ProductFilters() {
   const [state, setState] = useUrlState(filters);

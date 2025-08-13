@@ -1,5 +1,5 @@
 {
-  "name": "react-url-state",
+  "name": "react-zod-url-state",
   "version": "0.1.0",
   "description": "Schema-driven URL ↔ state sync for filters, tables & dashboards. Type-safe, SSR-friendly URL state management.",
   "main": "dist/index.js",

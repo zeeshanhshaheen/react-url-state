@@ -1,14 +1,11 @@
 import { z } from 'zod'
-import type { UrlStateDefinition, UrlStateOptions, UrlStateSchema, ParsedUrlState } from './types'
+import type { UrlStateDefinition, UrlStateOptions, UrlStateSchema, ParsedUrlState, DefinedUrlState } from './types'
 import { getFieldType, decodeValue, encodeValue } from './encoders'
 
 export function defineUrlState<T>(
   schema: UrlStateSchema<T>,
   options?: UrlStateOptions
-): UrlStateDefinition<T> & {
-  readFrom: (searchParams: URLSearchParams | Record<string, string | string[]>) => ParsedUrlState<T>
-  toSearchParams: (data: T) => URLSearchParams
-} {
+): DefinedUrlState<T> {
   const definition: UrlStateDefinition<T> = {
     schema,
     options: {

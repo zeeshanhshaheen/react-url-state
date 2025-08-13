@@ -13,6 +13,11 @@ export interface UrlStateDefinition<T = any> {
   options?: UrlStateOptions
 }
 
+export interface DefinedUrlState<T = any> extends UrlStateDefinition<T> {
+  readFrom: (searchParams: URLSearchParams | Record<string, string | string[]>) => ParsedUrlState<T>
+  toSearchParams: (data: T) => URLSearchParams
+}
+
 export type InferUrlStateType<T> = T extends UrlStateDefinition<infer U> ? U : never
 
 export interface ParsedUrlState<T = any> {

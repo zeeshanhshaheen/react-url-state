@@ -6,13 +6,32 @@ export default function Home() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <header className="mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            React URL State
+            React Zod URL State
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed">
             Stop manually syncing component state with URL parameters. This library automatically keeps your filters, 
             sorting, and pagination in sync with the URL using TypeScript schemas. No more broken back buttons, 
             lost filter state on refresh, or hand-written query parameter parsing.
           </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <a 
+              href="https://react-url-state.vercel.app/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              🚀 Live Demo
+            </a>
+            <a 
+              href="https://github.com/zeeshanhshaheen/react-url-state" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            >
+              📦 View on GitHub
+            </a>
+          </div>
         </header>
 
         <nav className="mb-12 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -29,7 +48,7 @@ export default function Home() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">Installation</h2>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
-              npm install react-url-state
+              npm install react-zod-url-state
             </div>
           </section>
 
@@ -38,7 +57,7 @@ export default function Home() {
             
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div>
-                <h3 className="text-lg font-semibold text-red-700 mb-3">❌ Without react-url-state</h3>
+                <h3 className="text-lg font-semibold text-red-700 mb-3">❌ Without react-zod-url-state</h3>
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4 h-96 overflow-auto">
                   <pre className="text-xs text-red-800"><code>{`import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
@@ -102,9 +121,9 @@ export function ProductFilters() {
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-green-700 mb-3">✅ With react-url-state</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-green-700 mb-3">✅ With react-zod-url-state</h3>
                 <div className="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4 h-64 sm:h-96 overflow-auto">
-                  <pre className="text-xs text-green-800"><code>{`import { defineUrlState, useUrlState, z } from "react-url-state";
+                  <pre className="text-xs text-green-800"><code>{`import { defineUrlState, useUrlState, z } from "react-zod-url-state";
 
 const filters = defineUrlState(z.object({
   q: z.string().default(""),
@@ -158,7 +177,7 @@ export function ProductFilters() {
               <div>
                 <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3">1. Define your schema</h3>
                 <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border overflow-x-auto">
-                  <pre className="text-xs sm:text-sm text-gray-800"><code>{`import { defineUrlState, z } from "react-url-state";
+                  <pre className="text-xs sm:text-sm text-gray-800"><code>{`import { defineUrlState, z } from "react-zod-url-state";
 
 export const filters = defineUrlState(z.object({
   q: z.string().default(""),
@@ -173,7 +192,7 @@ export const filters = defineUrlState(z.object({
               <div>
                 <h3 className="text-lg font-medium text-gray-900 mb-3">2. Use in your component</h3>
                 <div className="bg-gray-50 p-4 rounded-lg border">
-                  <pre className="text-xs sm:text-sm text-gray-800"><code>{`import { useUrlState } from "react-url-state";
+                  <pre className="text-xs sm:text-sm text-gray-800"><code>{`import { useUrlState } from "react-zod-url-state";
 
 export function ProductFilters() {
   const [state, setState] = useUrlState(filters);

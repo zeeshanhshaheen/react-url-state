@@ -2,8 +2,8 @@
 
 Stop manually syncing component state with URL parameters. This library automatically keeps your filters, sorting, and pagination in sync with the URL using TypeScript schemas. No more broken back buttons, lost filter state on refresh, or hand-written query parameter parsing.
 
-[![Demo](https://img.shields.io/badge/Demo-🚀_Live_Demo-blue?style=for-the-badge)](https://react-url-state.vercel.app/)
-[![Docs](https://img.shields.io/badge/Docs-📖_Documentation-green?style=for-the-badge)](https://react-url-state.vercel.app/)
+[![Demo](https://img.shields.io/badge/Demo-🚀_Live_Demo-blue?style=for-the-badge)](https://react-zod-url-state.vercel.app/)
+[![Docs](https://img.shields.io/badge/Docs-📖_Documentation-green?style=for-the-badge)](https://react-zod-url-state.vercel.app/)
 
 ## Installation
 

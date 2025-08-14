@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "React Zod URL State - Demo",
     description: "Schema-driven URL ↔ state sync for filters, tables & dashboards. Type-safe, SSR-friendly URL state management.",
     type: "website",
-    url: "https://react-url-state.vercel.app",
+    url: "https://react-zod-url-state.vercel.app",
   },
   twitter: {
     card: "summary_large_image",

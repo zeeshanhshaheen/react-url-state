@@ -3,10 +3,10 @@
 import { useNextUrlState, useNextShareLink } from "@/lib"
 import { productFiltersSchema } from "./schema"
 import { products, categories, filterProducts } from "./data"
-import { useMemo, useState } from "react"
+import { useMemo, useState, Suspense } from "react"
 import Link from "next/link"
 
-export default function DemoPage() {
+function DemoContent() {
   const [filters, setFilters] = useNextUrlState(productFiltersSchema)
   const { copyShareLink } = useNextShareLink(productFiltersSchema)
   const [copySuccess, setCopySuccess] = useState(false)
@@ -246,5 +246,15 @@ export default function DemoPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function DemoPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-gray-600">Loading...</div>
+    </div>}>
+      <DemoContent />
+    </Suspense>
   )
 }

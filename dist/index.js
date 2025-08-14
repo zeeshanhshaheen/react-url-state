@@ -11749,7 +11749,7 @@ function getFieldType(schema, key) {
     let isArray = false;
     if (field instanceof external_exports.ZodOptional || field instanceof external_exports.ZodNullable) {
       isOptional = true;
-      field = field._def.innerType || field.unwrap();
+      field = field.unwrap();
     }
     if (field instanceof external_exports.ZodDefault) {
       field = field._def.innerType;

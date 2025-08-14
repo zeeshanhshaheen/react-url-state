@@ -29,11 +29,15 @@
     "zod",
     "nextjs"
   ],
-  "author": "",
+  "author": "Zeeshan Shaheen",
+  "homepage": "https://react-url-state.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/zeeshanhshaheen/react-url-state/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/zeeshanhshaheen/react-url-state.git"
   },
   "scripts": {
     "dev": "next dev",

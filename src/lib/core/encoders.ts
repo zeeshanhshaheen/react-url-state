@@ -20,16 +20,16 @@ export function getFieldType(schema: z.ZodTypeAny, key: string): FieldTypeInfo {
 
     if (field instanceof z.ZodOptional || field instanceof z.ZodNullable) {
       isOptional = true
-      field = field.unwrap()
+      field = field.unwrap() as z.ZodTypeAny
     }
 
     if (field instanceof z.ZodDefault) {
-      field = field._def.innerType
+      field = field._def.innerType as z.ZodTypeAny
     }
 
     if (field instanceof z.ZodArray) {
       isArray = true
-      field = field.element
+      field = field.element as z.ZodTypeAny
     }
 
     const type = getZodType(field)

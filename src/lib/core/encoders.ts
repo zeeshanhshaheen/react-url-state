@@ -20,7 +20,7 @@ export function getFieldType(schema: z.ZodTypeAny, key: string): FieldTypeInfo {
 
     if (field instanceof z.ZodOptional || field instanceof z.ZodNullable) {
       isOptional = true
-      field = field._def.innerType || field.unwrap()
+      field = field.unwrap()
     }
 
     if (field instanceof z.ZodDefault) {
